@@ -1,0 +1,414 @@
+1.
+package oops;
+
+public class Singleton {
+	
+	private static Singleton single = null;
+	 int i;
+	 int j;
+	 
+	 private Singleton() {
+		super();
+		this.i = 10;
+		this.j = 10;
+	}
+	 public static Singleton getSingleton() {
+		 if(single == null) {
+			 single = new Singleton();
+		 }
+		 return single;
+		 
+	 }
+	 
+
+}
+
+package oops;
+
+public class P1 {
+
+	public static void main(String[] args) {
+		Singleton s= Singleton.getSingleton();
+		Singleton s1= Singleton.getSingleton();
+		System.out.println(s1.equals(s));
+
+	}
+
+}
+-----------------------------------------------------------------------------------
+
+2.public class Employee {
+	int empID;
+	String name;
+	 double sal;
+	
+	public Employee(int empID, String name, double sal) {
+		super();
+		this.empID = empID;
+		this.name = name;
+		this.sal = sal;
+	}
+	
+	public void totalSal() {
+		double totalSal = sal;
+		System.out.println(totalSal);
+	}
+	
+
+}
+
+public class Manager extends Employee{
+
+	double incentive;
+
+	public Manager(int empID, String name, double sal, double incentive) {
+		super(empID, name, sal);
+		this.incentive = incentive;
+	}
+	
+	public void totalSal() {
+		double totalSal = sal+ incentive;
+		System.out.println("Total salary of Manager :"+totalSal);
+	}
+	
+
+}
+
+public class Labour extends Employee{
+	double overTime;
+
+	public Labour(int empID, String name, double sal, double overTime) {
+		super(empID, name, sal);
+		this.overTime = overTime;
+	}
+	
+	public void totalSal() {
+		double totalSal =sal+overTime;
+		System.out.println("Total salary of Labour :"+totalSal);
+	}
+
+}
+
+public class Company {
+
+	public static void main(String[] args) {
+		Employee e = new Manager(123,"Nireekshan",10000.0,500.0);
+		e.totalSal();
+		Employee e1 = new Labour(456,"Raju",5000,500);
+		e1.totalSal();
+		System.out.println();
+		 
+	}
+
+}
+
+---------------------------------------------------------------------------------------
+3.public class Savings {
+	String accountantName;
+	int accountNumber;
+	double fixedDeposits;
+	
+	
+	public Savings(String accountantName, int accountNumber, double fixedDeposits) {
+		super();
+		this.accountantName = accountantName;
+		this.accountNumber = accountNumber;
+		this.fixedDeposits = fixedDeposits;
+	}
+
+
+	public void totalCash() {
+		double totalCash=fixedDeposits;
+		System.out.println(totalCash);
+	}
+
+}
+
+public class Current extends Savings {
+
+	double cashCredit;
+
+	public Current(String accountantName, int accountNumber, double fixedDeposits, double cashCredit) {
+		super(accountantName, accountNumber, fixedDeposits);
+		this.cashCredit = cashCredit;
+	}
+
+	public void totalCash() {
+		double totalCash = fixedDeposits + cashCredit;
+		System.out.println(totalCash);
+	}
+
+	public static void main(String[] args) {
+
+		Savings s = new Current("Nireekshan", 987654321, 5000, 5000);
+		s.totalCash();
+
+	}
+
+}
+
+
+--------------------------------------------------------------------------------------------------------
+
+5.package oops;
+
+public abstract class Shapes {
+
+	public abstract void draw();
+
+}
+
+package oops;
+
+public class Line extends Shapes {
+	
+
+	@Override
+	public void draw() {
+		System.out.println("We can find length by joining two points");
+		
+	}
+	
+}
+
+package oops;
+
+public class Rectangle extends Shapes {
+	int lenght;
+	int breadth;
+
+	public Rectangle(int lenght, int breadth) {
+		super();
+		this.lenght = lenght;
+		this.breadth = breadth;
+	}
+
+	@Override
+	public void draw() {
+		int area = lenght * breadth;
+		System.out.println("The area of the rectangle :" + area);
+
+	}
+
+}
+
+package oops;
+
+public class UserLogic {
+
+	public static void main(String[] args) {
+		Line l = new Line();
+		l.draw();
+		Square s = new Square(4);
+		s.draw();
+		Rectangle r = new Rectangle(5, 2);
+		r.draw();
+
+	}
+
+}
+-----------------------------------------------------------------------------------------------
+6.package oops;
+
+public abstract class Persistence {
+
+	public abstract void persist();
+
+}
+
+package oops;
+
+public class FilePersistance extends Persistence {
+
+	@Override
+	public void persist() {
+		System.out.println("overridden is happen in FilePersistance");
+
+	}
+
+}
+
+package oops;
+
+public class DatabasePersistance extends Persistence {
+
+	@Override
+	public void persist() {
+		System.out.println("overridden in DatabasePersistance");
+
+	}
+
+}
+
+package oops;
+
+public class FileDataBase {
+
+	public static void main(String[] args) {
+		Persistence per = new DatabasePersistance();
+		per.persist();
+		Persistence per1= new FilePersistance();
+		per1.persist();
+		Persistence per3 = new Persistence() {
+			public void persist() {
+			System.out.println("Overriding the persist from FiledataBase");
+			}
+		};
+		per3.persist();
+		
+			
+		
+		
+
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------
+7.
+package oops;
+
+public abstract class DessertItem {
+	public double tax;
+
+	public DessertItem(double tax) {
+		super();
+		this.tax = tax;
+	}
+	public abstract void getCost();
+
+}
+
+package oops;
+
+public class Candy extends DessertItem{
+	public double priceInDoller;
+
+	public Candy(double tax, double priceInDoller) {
+		super(tax);
+		this.priceInDoller = priceInDoller;
+	}
+
+	@Override
+	public void getCost() {
+		double price =0;
+		double rupees =60;
+		double a =priceInDoller/rupees;
+		System.out.println((price=a+tax)+" is the price of the cany in dollers");
+		
+	}
+	
+	
+	
+
+}
+
+package oops;
+
+public class Cookie extends DessertItem{
+	double priceInEuro;
+
+	public Cookie(double tax, double priceInEuro) {
+		super(tax);
+		this.priceInEuro = priceInEuro;
+	}
+
+	@Override
+	public void getCost() {
+		double cost;
+		double rupees =70;
+		double a= priceInEuro/rupees;
+		System.out.println((cost = a+tax)+" is the price of the cookie in Euro");
+		
+	}
+	
+
+}
+
+package oops;
+
+public class IceCream extends DessertItem{
+	public double rupees;
+
+	public IceCream(double tax, double rupees) {
+		super(tax);
+		this.rupees = rupees;
+	}
+
+	@Override
+	public void getCost() {
+		double cost;
+		System.out.println((cost=rupees+tax)+" is the price of icecream in rupees");
+		
+	}
+	
+
+}
+
+package oops;
+
+import java.util.Scanner;
+
+public class DessertApp {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter your role");
+		String role = scanner.next();
+		if (role.equals("owner")) {
+			owner();
+		} else if (role.equals("customer")) {
+			customer();
+		}
+
+	}
+
+	private static void customer() {
+		System.out.println("Welcome to Dessert shop sir ");
+		System.out.println("May i know What you want to buy");
+		Scanner scanner = new Scanner(System.in);
+		DessertItem dessertItem = new IceCream(20, 2);
+		DessertItem dessertItem1 = new Candy(5, 0.5);
+		DessertItem dessertItem2 = new Cookie(10, 1);
+		System.out.println("Items available are 1.Candy\n 2.IceCream\n 3.Cookie and those costs are");
+		dessertItem.getCost();
+		dessertItem1.getCost();
+		dessertItem2.getCost();
+		System.out.println("Select your item");
+		String order = scanner.next();
+		if (order.equals("Candy")) {
+			System.out.println("Order was placed for Candy");
+		} else if (order.equals("Cookie")) {
+			System.out.println("Order placed for Cookie");
+
+		} else if (order.equals("IceCream")) {
+			System.out.println("Order placed for IceCream");
+
+		}
+
+	}
+
+	public static void owner() {
+		System.out.println("Welcome sir add your items to the cart");
+		System.out.println("Items available are 1.Candy\n 2.IceCream\n 3.Cookie");
+		System.out.println("Select which item you want");
+		Scanner scanner = new Scanner(System.in);
+
+		String add = scanner.nextLine();
+		if (add.equals("Candy")) {
+			Candy c = new Candy(5, 0.5);
+			System.out.println("Item add into cart ");
+			c.getCost();
+		} else if (add.equals("Cookie")) {
+			Cookie c1 = new Cookie(10, 1);
+			System.out.println("Item add into cart ");
+			c1.getCost();
+		} else if (add.equals("IceCream")) {
+			IceCream ic = new IceCream(20, 2);
+			System.out.println("Item add into cart ");
+			ic.getCost();
+		}
+
+	}
+
+}
+
